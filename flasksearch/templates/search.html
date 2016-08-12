@@ -1,0 +1,45 @@
+{% extends "layouts/layout1.html" %}
+{% block title %}
+The Search
+{% endblock %}
+{% block content %}
+    <div class="container">
+      <h1>Database search</h1>
+      <br>
+      <form action="" method="post">
+        <input type="text" placeholder="Search" name="search" value="{{
+          request.form.search }}">
+        <input class="btn btn-default" type="submit" value="Search">
+      </form>
+      {% if error %}
+        <p class="error"><strong>Error:</strong> {{ error }}
+      {% endif %}
+
+     <table id="table" class="table table-hover table-mc-light-blue">
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Name</th>
+          <th>Item</th>
+          <th>Location</th>
+          <th>Status</th>
+          <th>Attendee</th>
+        </tr>
+      </thead>
+    {% if search_result != ["noresult"] %}
+        {% for abs in search_result %}
+          <tr>
+            {% for f in abs %}
+                <td>
+                    {{f}}
+                </td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+    {% endif %}
+    </table>
+    {% if search_result == ["noresult"] %}
+        <ol>No Results</ol>
+    {% endif %}
+    </div>
+{% endblock %}
